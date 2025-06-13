@@ -1,0 +1,456 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color:#f5f5f5;
+
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: darkblue;
+  padding: 1rem 2rem;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: #ff6600;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: #f5f5f5;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar li {
+  position: relative; 
+}
+/* Style for the currently selected page link */
+.navbar a:target,
+.navbar a[aria-current="page"] {
+    color: #ff6600 !important;
+    font-weight: bold;
+}
+#results-page:hover {
+  color: #f5f5f5 !important;
+  font-weight: bold;
+}
+/* Optional: Remove outline on focus for better appearance */
+.navbar a:focus {
+    outline: none;
+}
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+}
+
+.navbar a:hover {
+  color: #ff6600;
+  text-emphasis-color: #f5f5f5;
+}
+
+/* Dropdown styles */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: darkblue;
+  padding: 0.5rem 0;
+  border-radius: 5px;
+  z-index: 1;
+  min-width: 140px;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.navbar li:hover > .dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown li {
+  padding: 0;
+}
+
+.dropdown a {
+  color: white;
+  display: block;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.dropdown a:hover {
+  color: white;
+  background-color: #ff6600;
+}
+.get-results-container {
+    position: relative; /* Needed for absolute positioning of pseudo-element */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px lightgray;
+    overflow: hidden; /* Ensures blur doesn't leak outside */
+    z-index: 1;
+}
+
+/* Blurred background (using pseudo-element) */
+.get-results-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(results_back.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(7px); /* Blur only the background */
+    z-index: -1; /* Place behind content */
+}
+
+
+.get-results {
+    position: absolute; /* Position over the blurred background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 2; /* Ensure content appears above blurred background */
+    filter: blur(0); /* Explicitly remove blur from content */
+}
+
+.get-results p {
+    font-size: 3.0rem;
+    margin-bottom: 30px;
+    color: orangered;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Optional: improves readability */
+    filter: blur(0);
+}
+#get-results-btn {
+    background-color: darkblue;
+    color: #f5f5f5;
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0px 0px 5px 0px #f5f5f5;
+    filter: blur(0);
+}
+
+#get-results-btn:hover {
+    background-color: darkblue;
+    transform: scale(1.15);
+}
+.pdf-container {
+            min-width: 85%;
+            max-width: 1000px;
+            margin: 0px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0px 7px lightgray;
+}
+.pdf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 7px lightgray;
+        }
+        
+/* Table row hover effects */
+.pdf-table tr {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pdf-table tbody tr:hover {
+    background-color: #ff6600 !important;
+    color: #f5f5f5 !important; 
+    font-weight: bold;
+}
+
+.pdf-table tbody tr:hover td {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/* Prevent header row from changing */
+.pdf-table thead tr:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+}
+.pdf-table th {
+            background-color: darkblue;
+            color: white;
+            padding: 12px;
+            text-align: left;
+}
+        
+.pdf-table td {
+            padding: 30px 12px;
+            border-bottom: 1px solid #ecf0f1;
+}
+.pdf-table #notice {
+            color: darkblue;
+}       
+.pdf-table tr:hover {
+            background-color: #f8f9fa;
+}
+        
+.pdf-link {
+            color: darkblue;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+}
+        
+.pdf-link i {
+            font-size: 1.2em;
+}
+        
+.pdf-link:hover {
+            text-decoration: underline;
+}
+.pdf-container h1 {
+    text-align: center;
+}      
+.pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+}
+        
+.page-btn {
+            padding: 8px 16px;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+}
+        
+.page-btn:hover {
+            background-color: darkblue;
+}
+        
+.page-info {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+}
+        
+        /* Hide all PDF tables by default */
+.pdf-table-page {
+            display: none;
+}
+        
+        /* Show only the active page */
+input[type="radio"]:checked ~ .pdf-table-page {
+            display: table;
+}
+        
+        /* Hide radio buttons visually but keep them accessible */
+.page-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+}
+
+.pdf-container {
+            box-shadow: 0px 0px 5px 2px lightgrey;
+            margin-bottom: 100px;
+}
+.pdf-table-page {
+  display: none;
+}
+.page-radio:checked + .pdf-table-page {
+  display: table;
+}
+.prev-next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#prev-btn {
+  height: 50px;
+  width: 70px;
+  margin-right: 10px;
+  background-color: darkblue;
+  color: #f5f5f5;
+  font-weight: bold;
+  border-radius: 10%;
+  transition: transform 0.3s ease;
+  font-size: large;
+}
+#next-btn:hover {
+  transform: scale(1.15);
+}
+#prev-btn:hover {
+  transform: scale(1.15);
+}
+#next-btn {
+  height: 50px;
+  width: 70px;
+  margin-left: 10px;
+  border-radius: 10%;
+  background-color: darkblue;
+  color: #f5f5f5;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  font-size: large;
+}
+footer{
+  background-color: darkblue;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+@media (min-width: 768px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+  
+  .navbar a {
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  .get-results p {
+    font-size: 2.5rem;
+  }
+  
+  #get-results-btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+  }
+  
+  .pdf-container {
+    padding: 2.5rem;
+  }
+  
+  .pdf-container h1 {
+    font-size: 1.8rem;
+  }
+  
+  #prev-btn, #next-btn {
+    height: 50px;
+    width: 100px;
+    font-size: 1.1rem;
+  }
+  .get-results-container {
+    height: 700px;
+  }
+}
+
+@media (min-width: 992px) {
+  .get-results p {
+    font-size: 3rem;
+  }
+  
+  .get-results-container {
+    height: 500px;
+  }
+  
+  .pdf-table {
+    margin: 2rem 0;
+  }
+  
+  .pdf-table td {
+    padding: 20px 12px;
+  }
+  .get-results-container {
+    height: 600px;
+  }
+}
+.pdf-table #notice-date {
+  width: 150px;
+}
+/* For very small screens */
+@media (max-width: 480px) {
+  .get-results p {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  #get-results-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .pdf-table th, 
+  .pdf-table td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+  
+  #prev-btn, #next-btn {
+    height: 35px;
+    width: 70px;
+    font-size: 0.9rem;
+  }
+}
